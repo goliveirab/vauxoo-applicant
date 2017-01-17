@@ -14,7 +14,7 @@ class CalculatorClass(object):
         """
         sum_res = 0
 
-        for i in num_list:
-            sum_res += i
+        for num in num_list:
+            sum_res += num
 
         return sum_res

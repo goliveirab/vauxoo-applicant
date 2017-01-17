@@ -1,7 +1,7 @@
 """
  Prime number calculation
 """
-import math
+
 
 class PrimeClass(object):
     """
@@ -12,19 +12,21 @@ class PrimeClass(object):
         """
         Check if a number is prime
         """
-        n = abs(int(num_int))
 
-        if n < 2:
+        nums = abs(int(num_int))
+
+        if nums < 2:
             return False
 
-        if n == 2: 
-            return True    
+        if nums == 2:
+            return True
 
-        if not n & 1: 
+        if not nums & 1:
             return False
 
-        for x in range(3, int(n**0.5) + 1, 2):
-            if n % x == 0:
+        for num in range(3, int(nums**0.5) + 1, 2):
+
+            if nums % num == 0:
                 return False
 
         return True
