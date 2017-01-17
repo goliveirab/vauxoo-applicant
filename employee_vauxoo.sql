@@ -17,8 +17,16 @@ CREATE TABLE employee (
 );
 
 CREATE TABLE employee_hobby (
-  
+    id          integer PRIMARY KEY,
+    name        char(100) NOT NULL,
+    description char(300)
 );
+
+CREATE TABLE employee_hobbys (
+    employee_id  integer REFERENCES employee(id),
+    employee_hobby_id integer REFERENCES employee_hobby(id)
+);
+
 -- ...
 -- Inserting employees and departments
 -- ...
@@ -35,4 +43,19 @@ INSERT INTO employee VALUES
     (2, 'Jessica', 'Biel', 1), 
     (3, 'Milla', 'Jovovich', 2), 
     (4, 'Michael J.', 'Fox', 3);
+
+INSERT INTO employee_hobby VALUES
+    (1, 'Pilates'),
+    (2, 'Soccer'),
+    (3, 'Movies');
+
+INSERT INTO employee_hobbys VALUES
+    (1, 2),
+    (1, 3),
+    (2, 2),
+    (2, 1),
+    (3, 2),
+    (3, 1),
+    (4, 3),
+    (4, 2);
 
