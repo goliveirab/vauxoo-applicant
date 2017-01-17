@@ -27,6 +27,12 @@ CREATE TABLE employee_hobbys (
     employee_hobby_id integer REFERENCES employee_hobby(id)
 );
 
+CREATE TABLE boss_department (
+    employee_id            integer REFERENCES employee(id),
+    employee_department_id integer REFERENCES employee_department(id),
+    PRIMARY KEY(employee_id,employee_department_id)
+);
+
 -- ...
 -- Inserting employees and departments
 -- ...
@@ -58,4 +64,9 @@ INSERT INTO employee_hobbys VALUES
     (3, 1),
     (4, 3),
     (4, 2);
+
+INSERT INTO boss_department VALUES
+    (1, 1),
+    (3, 2),
+    (4, 3);
 
