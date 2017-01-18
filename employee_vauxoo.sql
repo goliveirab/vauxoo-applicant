@@ -13,8 +13,11 @@ CREATE TABLE employee (
     id                     integer PRIMARY KEY,
     first_name             char(100) NOT NULL,
     last_name              char(100) NOT NULL, 
-    employee_department_id integer REFERENCES employee_department(id)
+    employee_department_id integer REFERENCES employee_department(id),
+    boss_check             boolean DEFAULT FALSE
 );
+
+CREATE UNIQUE INDEX unique_boss ON employee (employee_department_id, boss_check) WHERE (boss_check is TRUE);
 
 CREATE TABLE employee_hobby (
     id          integer PRIMARY KEY,
@@ -27,11 +30,6 @@ CREATE TABLE employee_hobbys (
     employee_hobby_id integer REFERENCES employee_hobby(id)
 );
 
-CREATE TABLE boss_department (
-    employee_id            integer REFERENCES employee(id),
-    employee_department_id integer REFERENCES employee_department(id),
-    PRIMARY KEY(employee_id,employee_department_id)
-);
 
 -- ...
 -- Inserting employees and departments
@@ -45,11 +43,14 @@ INSERT INTO employee_department VALUES
     (6, 'Finance', 'From advising our product teams to managing day-to-day balance sheets, help keep our business on track to meet (or, better yet, exceed) our goals.');
 
 INSERT INTO employee VALUES 
-    (1, 'Samuel L.', 'Jackson', 1), 
-    (2, 'Jessica', 'Biel', 1), 
-    (3, 'Milla', 'Jovovich', 2), 
-    (4, 'Michael J.', 'Fox', 3);
+    (1, 'Samuel L.', 'Jackson', 1, FALSE), 
+    (2, 'Jessica', 'Biel', 1, TRUE), 
+    (3, 'Milla', 'Jovovich', 2, TRUE), 
+    (4, 'Michael J.', 'Fox', 3, TRUE);
 
+-- ...
+-- Inserting employees and hobbys
+-- ...
 INSERT INTO employee_hobby VALUES
     (1, 'Pilates'),
     (2, 'Soccer'),
@@ -64,9 +65,3 @@ INSERT INTO employee_hobbys VALUES
     (3, 1),
     (4, 3),
     (4, 2);
-
-INSERT INTO boss_department VALUES
-    (1, 1),
-    (3, 2),
-    (4, 3);
-
